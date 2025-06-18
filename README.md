@@ -9,14 +9,14 @@ Before you begin, ensure you have the following installed:
 
 ## 📚 Table of Contents
 
-- [Introduction](#🧾-introduction)
+- [Introduction](#introduction)
 - [Feature ](#🎯-feature)
-- [Installation and Run](#🚀-installation-and-run)
-- [How it work](#⚙️-how-it-work)
-- [API Overview](#📡-api-overview)
-- [Technologies Used](#🧰-technologies-used)
+- [Installation and Run](#installation-and-run)
+- [How it work](#how-it-work)
+- [API Overview](#api-overview)
+- [Technologies Used](#technologies-used)
 
-## 🧾 Introduction
+## Introduction
 
 This project is a backend RESTful API designed as part of a backend internship. It focuses on core backend skills such as API design, authentication, error handling, database interaction, and deployment via Docker.
 
@@ -30,7 +30,7 @@ The objective of this project is to demonstrate backend development proficiency,
 - Database modeling and interaction
 - Containerization using Docker
 
-## 🚀 Installation and Run
+## Installation and Run
 
 You can run this project using Docker. Follow these steps:
 
@@ -48,7 +48,7 @@ docker-compose up -d ; docker logs -f backend
 
 - Access: http://localhost:8001/api-docs to view the API documentation.
 ### Note : Make sure to wait 30 seconds to ensure all services are fully initialized, services is running 
-## ⚙️ How it work
+## How it work
 ### CI/CD Setup : 
 - A **Dockerfile** is created to build the backend service.
 - **docker-compose** is used to orchestrate the **MySQL**, **phpMyAdmin** (for manual database editing), and **backend** services.
@@ -62,7 +62,7 @@ docker-compose up -d ; docker logs -f backend
 - A **soft delete** mechanism is implemented by adding an **isDelete** field to the **Users** table.
 
 
-## 📡 API Overview
+## API Overview
 - **/api** – Public routes (do not require login)
 >/login, /register, /logout
 - **/api/user** – Routes for normal users:
@@ -72,7 +72,7 @@ docker-compose up -d ; docker logs -f backend
 > /getInforOwn, /updateInforOwn, /deleteOwn
 
 > 📘 Visit http://localhost:8001/api-docs after starting the project (and waiting 30 seconds) to explore the full API documentation.
-## 🧰 Technologies Used
+## Technologies Used
 🐳 **Docker** – Containerization for consistent environment setup
 
 🐬 **MySQL** – Relational database
@@ -90,10 +90,5 @@ docker-compose up -d ; docker logs -f backend
 🖥️ **phpMyAdmin** – Web-based GUI for managing MySQL
 
 🗑️ **Soft Delete** – Implemented using an isDelete field in the user model
-
-
-
-
-
 
 
