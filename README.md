@@ -87,7 +87,7 @@ docker-compose up -d ; docker logs -f backend
 
 🧾 **swagger-ui-express** + **YAMLJS** – **API documentation** via **docs.yaml**
 
-🖥️ **phpMyAdmin** – Web-based GUI for managing MySQL
+🖥️ **phpMyAdmin** – Web-based GUI for managing MySQL (You can access : http://localhost:8080 to manage MySQL after project already running)
 
 🗑️ **Soft Delete** – Implemented using an isDelete field in the user model
 
