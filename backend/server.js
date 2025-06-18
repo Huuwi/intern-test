@@ -49,6 +49,6 @@ setTimeout(() => {
     httpServer.listen(PORT, () => {
         console.log("httpServer is running on port:", PORT);
     });
-}, end * 1000 + 1); // wait 30 seconds before starting the server to ensure the database is ready
+}, end * 1000 + 1000); // wait 30 seconds before starting the server to ensure the database is ready
 
 

@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
-  title: Authentication API
-  description: API cho việc xác thực người dùng, bao gồm đăng nhập, đăng ký và đăng xuất
+  title: INTERN_TEST_NGUYEN_HUU_DUC
+  description: RESSTFUL API cho ứng dụng quản lý người dùng
   version: 1.0.0
 servers:
   - url: http://localhost:8001
