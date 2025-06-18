@@ -1,5 +1,4 @@
 // swagger.js
-const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const YAML = require('yamljs');
 const path = require('path');
@@ -9,7 +8,7 @@ const options = {
     definition: {
         openapi: "3.0.0",
         info: {
-            title: "Intern API",
+            title: "Intern_Test API",
             version: "1.0.0",
             description: "Documentation for Intern API",
         },
@@ -22,7 +21,6 @@ const options = {
     apis: ["./src/api/*.js"],
 };
 
-const swaggerSpec = swaggerJSDoc(options);
 
 function swaggerDocs(app) {
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
