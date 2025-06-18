@@ -52,7 +52,7 @@ docker-compose up -d ; docker logs -f backend
 ### CI/CD Setup : 
 - A **Dockerfile** is created to build the backend service.
 - **docker-compose** is used to orchestrate the **MySQL**, **phpMyAdmin** (for manual database editing), and **backend** services.
-- A file named **sql.init** (for creating tables and inserting sample data) is placed in /docker-entrypoint-initdb.d/.
+- A file named **init.sql** (for creating tables and inserting sample data) is placed in /docker-entrypoint-initdb.d/.
 > This file is automatically executed the first time Docker builds the services.
 ### Backend RESTful API : 
 - Built with **Express.js** for the backend server.
