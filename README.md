@@ -53,7 +53,7 @@ docker-compose up -d ; docker logs -f backend
 
 ### About CI/CD : 
 - I create a **Dockerfile** to build backend service
-- I use **docker-compose** to combine **MySQL** service and **phpMyAdmin** service (to manual edit database).
+- I use **docker-compose** to combine **MySQL** service , **phpMyAdmin** service (to manual edit database) and **backend** service.
 - I create a file **sql.init** (create table and insert some data) and put it into **/docker-entrypoint-initdb.d/**. (**docker-compose** will automaticaly run this file in first time to build)
 ### About RESTful backend : 
 - I use **ExpressJs** to create a server backend
