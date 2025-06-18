@@ -9,18 +9,18 @@ Before you begin, ensure you have the following installed:
 
 ## 📚 Table of Contents
 
-- [Introduction](#introduction)
-- [Purpose](#purpose)
-- [Installation and Run](#installation-and-run)
-- [How it work](#how-it-work)
-- [API Overview](#api-overview)
-- [Technologies Used](#technologies-used)
+- [Introduction](#🧾-introduction)
+- [Feature ](#🎯-feature)
+- [Installation and Run](#🚀-installation-and-run)
+- [How it work](#⚙️-how-it-work)
+- [API Overview](#📡-api-overview)
+- [Technologies Used](#🧰-technologies-used)
 
 ## 🧾 Introduction
 
 This project is a backend RESTful API designed as part of a backend internship. It focuses on core backend skills such as API design, authentication, error handling, database interaction, and deployment via Docker.
 
-## 🎯 Purpose
+## 🎯 Feature
 
 The objective of this project is to demonstrate backend development proficiency, including:
 
@@ -44,39 +44,52 @@ docker-compose up -d ; docker logs -f backend
 
 ```
 
-- Please wait 30s until all serivces is running
+- Please wait 30 seconds until all services are running.
 
-- Access : http://localhost:8001/api-docs to see all the api docs
-### Note : Please wait 30s to ensure all the services is running 
-
+- Access: http://localhost:8001/api-docs to view the API documentation.
+### Note : Make sure to wait 30 seconds to ensure all services are fully initialized, services is running 
 ## ⚙️ How it work
-
-### About CI/CD : 
-- I create a **Dockerfile** to build backend service
-- I use **docker-compose** to combine **MySQL** service , **phpMyAdmin** service (to manual edit database) and **backend** service.
-- I create a file **sql.init** (create table and insert some data) and put it into **/docker-entrypoint-initdb.d/**. (**docker-compose** will automaticaly run this file in first time to build)
-### About RESTful backend : 
-- I use **ExpressJs** to create a server backend
-- Using **JWT** and **cookie-parser** to create middleware for authentication, authorization (have two roles are : admin and user)
-- I use **MySQL database** and **Sequelize ORM**
-- I use **swagger-ui-express** and **yamljs** to create api-docs using **.yaml** file
-- I add a property to **Users table** name **isDelete** to implement **soft delete**
+### CI/CD Setup : 
+- A **Dockerfile** is created to build the backend service.
+- **docker-compose** is used to orchestrate the **MySQL**, **phpMyAdmin** (for manual database editing), and **backend** services.
+- A file named **sql.init** (for creating tables and inserting sample data) is placed in /docker-entrypoint-initdb.d/.
+> This file is automatically executed the first time Docker builds the services.
+### Backend RESTful API : 
+- Built with **Express.js** for the backend server.
+- Uses **JWT** and **cookie-parser** middleware for authentication and authorization (supports two roles: **admin** and **user**).
+- Data is stored in a **MySQL** database using **Sequelize ORM**.
+- **API documentation** is provided using **swagger-ui-express** and **yamljs** with .**yaml** configuration.
+- A **soft delete** mechanism is implemented by adding an **isDelete** field to the **Users** table.
 
 
 ## 📡 API Overview
-- I create **/api** path : include all apis **don't need login** to use (**/login**, **/resgiter**, **/logout**)
-- I create **/api/user** path : include all apis for **normal user** (**/getInforOwn**, **/updateInforOwn**, **/deleteOwn**)
+- **/api** – Public routes (do not require login)
+>/login, /register, /logout
+- **/api/user** – Routes for normal users:
+>/getInforOwn, /updateInforOwn, /deleteOwn
 
-- I create **/api/user** path : include all apis for **admin** (**/getInforOwn**, **/updateInforOwn**, **/deleteOwn**)
+- **/api/admin** – Routes for admin users:
+> /getInforOwn, /updateInforOwn, /deleteOwn
 
-You can see detail in : http://localhost:8001/api-docs (when run this project and wait 30s)
+> 📘 Visit http://localhost:8001/api-docs after starting the project (and waiting 30 seconds) to explore the full API documentation.
+## 🧰 Technologies Used
+🐳 **Docker** – Containerization for consistent environment setup
 
-## Technologies Used
-- Docker 
-- MySQL , Sequelize(ORM)
-- NodeJs (ExpressJs)
-- JWT
+🐬 **MySQL** – Relational database
 
+🔗 **Sequelize (ORM)** – Simplified database interaction
+
+⚙️ **Node.js (Express.js)** – Server-side JavaScript and web framework
+
+🔐 **JWT (JSON Web Token)** – Authentication & authorization
+
+🍪 **cookie-parser** – Middleware to parse cookies
+
+🧾 **swagger-ui-express** + **YAMLJS** – **API documentation** via **docs.yaml**
+
+🖥️ **phpMyAdmin** – Web-based GUI for managing MySQL
+
+🗑️ **Soft Delete** – Implemented using an isDelete field in the user model
 
 
 
