@@ -69,7 +69,7 @@ docker-compose up -d ; docker logs -f backend
 >/getInforOwn, /updateInforOwn, /deleteOwn
 
 - **/api/admin** – Routes for admin users:
-> /getInforOwn, /updateInforOwn, /deleteOwn
+> /getAllUser, /updateUserById, /deleteUserById
 
 > 📘 Visit http://localhost:8001/api-docs after starting the project (and waiting 30 seconds) to explore the full API documentation.
 ## Technologies Used
