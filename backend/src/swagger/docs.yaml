@@ -1,0 +1,522 @@
+openapi: 3.0.0
+info:
+  title: Authentication API
+  description: API cho việc xác thực người dùng, bao gồm đăng nhập, đăng ký và đăng xuất
+  version: 1.0.0
+servers:
+  - url: http://localhost:8001
+    description: Server local
+paths:
+  /api/:
+    get:
+      summary: API kiểm tra
+      description: Trả về địa chỉ IP của client và thiết lập một cookie kiểm tra
+      responses:
+        '200':
+          description: Phản hồi thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "your ip address : 192.168.1.1"
+
+  /api/login:
+    post:
+      summary: Đăng nhập người dùng
+      description: Xác thực người dùng và trả về token. Thiết lập cookie accessToken.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Đăng nhập thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "ok"
+                  userData:
+                    $ref: '#/components/schemas/User'
+                  refreshToken:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        '400':
+          description: Yêu cầu không hợp lệ
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    enum:
+                      - "missing data!"
+                      - "username or password not correct!"
+                      - "your account has been deleted!"
+        '500':
+          description: Lỗi server nội bộ
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "have wrong!"
+
+  /api/logout:
+    post:
+      summary: Đăng xuất người dùng
+      description: Xóa cookie accessToken
+      responses:
+        '200':
+          description: Đăng xuất thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "logout success!"
+        '500':
+          description: Lỗi server nội bộ
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "have wrong!"
+
+  /api/register:
+    post:
+      summary: Đăng ký người dùng
+      description: Tạo tài khoản người dùng mới
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: Đăng ký thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Register success!"
+                  userData:
+                    $ref: '#/components/schemas/User'
+        '400':
+          description: Yêu cầu không hợp lệ
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    enum:
+                      - "Missing required data!"
+                      - "Phone invalid"
+                      - "Email invalid"
+                      - "Username already exists!"
+                  received:
+                    type: object
+                    properties:
+                      username:
+                        type: string
+                      password:
+                        type: string
+                      nickName:
+                        type: string
+                      phone:
+                        type: string
+                      email:
+                        type: string
+                      avatar:
+                        type: string
+        '500':
+          description: Lỗi server nội bộ
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Something went wrong!"
+
+  /api/user/getInforOwn:
+    get:
+      summary: Lấy thông tin người dùng hiện tại
+      description: Trả về thông tin của người dùng đang đăng nhập, dựa trên token xác thực.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Thông tin người dùng được trả về thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Không được phép
+          content:
+            application/json:
+              example:
+                message: "Unauthorized"
+        '404':
+          description: Không tìm thấy người dùng
+          content:
+            application/json:
+              example:
+                message: "User not found"
+        '500':
+          description: Lỗi server nội bộ
+          content:
+            application/json:
+              example:
+                message: "Internal server error"
+
+  /api/user/updateInforOwn:
+    put:
+      summary: Cập nhật thông tin người dùng hiện tại
+      description: Cập nhật thông tin cá nhân của người dùng đang đăng nhập. Tất cả các trường đều tùy chọn.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nickName:
+                  type: string
+                phone:
+                  type: string
+                avatar:
+                  type: string
+                status:
+                  type: string
+                  enum: [single, married]
+      responses:
+        '200':
+          description: Cập nhật thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: "User information updated successfully"
+        '400':
+          description: Dữ liệu không hợp lệ
+          content:
+            application/json:
+              example:
+                message: "Phone invalid"
+        '401':
+          description: Không được phép
+          content:
+            application/json:
+              example:
+                message: "Unauthorized"
+        '404':
+          description: Không tìm thấy người dùng
+          content:
+            application/json:
+              example:
+                message: "User not found"
+        '500':
+          description: Lỗi server nội bộ
+          content:
+            application/json:
+              example:
+                message: "Internal server error"
+
+  /api/user/deleteOwn:
+    delete:
+      summary: Xóa tài khoản người dùng hiện tại
+      description: Đánh dấu tài khoản của người dùng đang đăng nhập là đã xóa (soft delete).
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Xóa thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: "User deleted successfully"
+        '401':
+          description: Không được phép
+          content:
+            application/json:
+              example:
+                message: "Unauthorized"
+        '404':
+          description: Không tìm thấy người dùng
+          content:
+            application/json:
+              example:
+                message: "User not found"
+        '500':
+          description: Lỗi server nội bộ
+          content:
+            application/json:
+              example:
+                message: "Internal server error"
+
+  /api/admin/getAllUser:
+    get:
+      summary: Lấy danh sách tất cả người dùng
+      description: Trả về danh sách tất cả người dùng chưa bị xóa (chỉ dành cho quản trị viên).
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Thành công
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserFull'
+        '401':
+          description: Không được phép
+          content:
+            application/json:
+              example:
+                message: "Unauthorized"
+        '500':
+          description: Lỗi server nội bộ
+          content:
+            application/json:
+              example:
+                message: "Internal server error"
+
+  /api/admin/updateUserById:
+    put:
+      summary: Cập nhật thông tin người dùng theo ID
+      description: Cập nhật thông tin của một người dùng cụ thể (chỉ dành cho admin).
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                nickName:
+                  type: string
+                email:
+                  type: string
+                phone:
+                  type: string
+                avatar:
+                  type: string
+                status:
+                  type: string
+                  enum: [single, married]
+              required:
+                - userId
+      responses:
+        '200':
+          description: Cập nhật thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Dữ liệu không hợp lệ
+          content:
+            application/json:
+              example:
+                message: "Phone invalid"
+        '401':
+          description: Không được phép
+          content:
+            application/json:
+              example:
+                message: "Unauthorized"
+        '404':
+          description: Không tìm thấy
+          content:
+            application/json:
+              example:
+                message: "User not found"
+        '500':
+          description: Lỗi nội bộ
+          content:
+            application/json:
+              example:
+                message: "Internal server error"
+
+  /api/admin/deleteUserById:
+    delete:
+      summary: Xóa người dùng theo ID
+      description: Đánh dấu một người dùng là đã xóa dựa trên userId (admin).
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+              required:
+                - userId
+      responses:
+        '200':
+          description: Xóa thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: "User deleted successfully"
+        '401':
+          description: Không được phép
+          content:
+            application/json:
+              example:
+                message: "Unauthorized"
+        '404':
+          description: Không tìm thấy
+          content:
+            application/json:
+              example:
+                message: "User not found"
+        '500':
+          description: Lỗi nội bộ
+          content:
+            application/json:
+              example:
+                message: "Internal server error"
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        userId:
+          type: integer
+        nickName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        avatar:
+          type: string
+        status:
+          type: string
+          enum: [single, married]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    UserFull:
+      type: object
+      properties:
+        userId:
+          type: integer
+        nickName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        avatar:
+          type: string
+        status:
+          type: string
+          enum: [single, married]
+        password:
+          type: string
+        isDelete:
+          type: boolean
+        isAdmin:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required:
+        - username
+        - password
+
+    RegisterRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        nickName:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        avatar:
+          type: string
+      required:
+        - username
+        - password
+        - nickName
+        - phone
+        - email
+        - avatar
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Token JWT để xác thực người dùng hoặc quản trị viên
