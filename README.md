@@ -10,7 +10,7 @@ Before you begin, ensure you have the following installed:
 ## 📚 Table of Contents
 
 - [Introduction](#introduction)
-- [Feature ](#🎯-feature)
+- [Feature ](#feature)
 - [Installation and Run](#installation-and-run)
 - [How it work](#how-it-work)
 - [API Overview](#api-overview)
@@ -20,7 +20,7 @@ Before you begin, ensure you have the following installed:
 
 This project is a backend RESTful API designed as part of a backend internship. It focuses on core backend skills such as API design, authentication, error handling, database interaction, and deployment via Docker.
 
-## 🎯 Feature
+## Feature
 
 The objective of this project is to demonstrate backend development proficiency, including:
 
