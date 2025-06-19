@@ -54,7 +54,7 @@ docker-compose up -d ; docker logs -f backend
 - **docker-compose** is used to orchestrate the **MySQL**, **phpMyAdmin** (for manual database editing), and **backend** services.
 - A file named **init.sql** (for creating tables and inserting sample data) is placed in /docker-entrypoint-initdb.d/.
 > This file is automatically executed the first time Docker builds the services.
-> Inserted two samples for two roles : username = password = "admin" (admin) and username = password = "user1" (user)
+>> Inserted two samples for two roles : username = password = "admin" (admin) and username = password = "user1" (user)
 ### Backend RESTful API : 
 - Built with **Express.js** for the backend server.
 - Uses **JWT** and **cookie-parser** middleware for authentication and authorization (supports two roles: **admin** and **user**).
