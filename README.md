@@ -49,7 +49,7 @@ docker-compose up -d ; docker logs -f backend
 - Access: http://localhost:8001/api-docs to view the API documentation.
 ### Note : Make sure to wait 30 seconds to ensure all services are fully initialized, services is running 
 ## How it work
-### CI/CD Setup : 
+### Docker&Database Setup : 
 - A **Dockerfile** is created to build the backend service.
 - **docker-compose** is used to orchestrate the **MySQL**, **phpMyAdmin** (for manual database editing), and **backend** services.
 - A file named **init.sql** (for creating tables and inserting sample data) is placed in /docker-entrypoint-initdb.d/.
