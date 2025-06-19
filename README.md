@@ -40,7 +40,9 @@ git clone https://github.com/Huuwi/intern-test
 cd intern_test
 
 # Start the service and watch log
-docker-compose up -d ; docker logs -f backend
+docker-compose up -d
+docker logs -f backend
+
 
 ```
 
