@@ -4,24 +4,6 @@ const YAML = require('yamljs');
 const path = require('path');
 const swaggerDocument = YAML.load(path.join(__dirname, 'docs.yaml'));
 
-const options = {
-    definition: {
-        openapi: "3.0.0",
-        info: {
-            title: "Intern_Test API",
-            version: "1.0.0",
-            description: "Documentation for Intern API",
-        },
-        servers: [
-            {
-                url: "http://localhost:8001",
-            },
-        ],
-    },
-    apis: ["./src/api/*.js"],
-};
-
-
 function swaggerDocs(app) {
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
         swaggerOptions: {
